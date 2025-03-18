@@ -1,4 +1,4 @@
 class Constants {
-  static const String appTitle = "Climate Action App";
+  static const String appTitle = "Nisarg";
 // Add other constants as needed, like API endpoints or color codes
 }

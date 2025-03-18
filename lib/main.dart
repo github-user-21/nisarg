@@ -7,14 +7,16 @@ import 'utils/constants.dart';
 
 void main() {
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicApp(
+    return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: Constants.appTitle,
       theme: theme,

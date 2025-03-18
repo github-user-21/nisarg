@@ -22,6 +22,7 @@ class BottomNavBar extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.post_add), label: "Posts"),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Create"),
           BottomNavigationBarItem(
               icon: Icon(Icons.video_collection), label: "Reels"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
