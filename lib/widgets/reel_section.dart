@@ -17,7 +17,8 @@ class ReelsSection extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // Let outer scroll view handle scrolling
+      physics: const NeverScrollableScrollPhysics(),
+      // Let outer scroll view handle scrolling
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: gridCount,
         crossAxisSpacing: 10,

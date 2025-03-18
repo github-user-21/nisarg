@@ -1,4 +1,7 @@
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter/material.dart';
+import '../widgets/top_appbar.dart';
+import '../widgets/bottom_navbar.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String username = 'EcoWarrior123';
@@ -7,33 +10,32 @@ class ProfileScreen extends StatelessWidget {
   final int followers = 340;
   final int following = 180;
 
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text('My Profile', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings, color: Colors.black),
-            onPressed: () {},
+    return NeumorphicBackground(
+      child: Scaffold(
+        backgroundColor: Colors.indigoAccent,
+        appBar: const TopAppBar(title: "My Profile"),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildProfileHeader(context),
+              const SizedBox(height: 10),
+              _buildProfileStats(),
+              const Divider(thickness: 1),
+              _buildBadgesSection(),
+              const Divider(thickness: 1),
+              _buildPostList(context),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildProfileHeader(context),
-            SizedBox(height: 10),
-            _buildProfileStats(),
-            Divider(thickness: 1),
-            _buildBadgesSection(),
-            Divider(thickness: 1),
-            _buildPostList(),
-          ],
+        ),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: 4, // Assuming Profile is at index 4
+          onTap: (index) {
+            // Implement your navigation logic here
+          },
         ),
       ),
     );
@@ -44,28 +46,34 @@ class ProfileScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          CircleAvatar(
+          // Using a network image for the profile avatar
+          const CircleAvatar(
             radius: 45,
-            backgroundImage: AssetImage('assets/user.jpg'),
+            backgroundImage:
+                NetworkImage('https://picsum.photos/200/200?random=100'),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(username,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 8),
+                Text(
+                  username,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
                 ElevatedButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.edit, size: 18),
-                  label: Text("Edit Profile"),
+                  icon: const Icon(Icons.edit, size: 18),
+                  label: const Text("Edit Profile"),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.green[700],
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ],
@@ -94,9 +102,9 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       children: [
         Icon(icon, color: Colors.green[700], size: 26),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(count,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         Text(title, style: TextStyle(color: Colors.grey[600], fontSize: 13)),
       ],
     );
@@ -108,9 +116,9 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Badges',
+          const Text('Badges',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Wrap(
             spacing: 10,
             runSpacing: 8,
@@ -128,77 +136,90 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildBadgeChip(String label, IconData icon, Color color) {
     return Chip(
       avatar: Icon(icon, color: Colors.white, size: 16),
-      label: Text(label, style: TextStyle(color: Colors.white)),
+      label: Text(label, style: const TextStyle(color: Colors.white)),
       backgroundColor: color,
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     );
   }
 
-  Widget _buildPostList() {
-    final posts = [
+  Widget _buildPostList(BuildContext context) {
+    final postsData = [
       {
         "content": "Planted 5 trees today!",
         "time": "2 days ago",
         "likes": 30,
         "comments": 5,
-        "image": "assets/trees.jpg"
+        "image": "https://picsum.photos/200/300?random=10"
       },
       {
         "content": "Started a community clean-up!",
         "time": "5 days ago",
         "likes": 45,
         "comments": 12,
-        "image": "assets/cleanup.jpg"
+        "image": "https://picsum.photos/200/300?random=11"
       },
       {
         "content": "Switched to zero waste products 🌱",
         "time": "1 week ago",
         "likes": 20,
         "comments": 3,
-        "image": "assets/zero_waste.jpg"
-      },
+        "image": "https://picsum.photos/200/300?random=12"
+      }
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Text('My Posts',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ),
-        ...posts.map((post) => _buildPostCard(post)).toList(),
+        ...postsData.map((post) => _buildPostCard(context, post)).toList(),
       ],
     );
   }
 
-  Widget _buildPostCard(Map<String, dynamic> post) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius:
-            BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.asset(post["image"], height: 180, width: double.infinity, fit: BoxFit.cover),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(post["content"],
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-            child: Text(
-              '${post["time"]} • ${post["likes"]} likes • ${post["comments"]} comments',
-              style: TextStyle(color: Colors.grey[600], fontSize: 13),
+  Widget _buildPostCard(BuildContext context, Map<String, dynamic> post) {
+    final double cardWidth = MediaQuery.of(context).size.width - 32;
+    return Container(
+      width: cardWidth,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
+              child: Image.network(
+                post["image"],
+                height: 180,
+                width: cardWidth,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                post["content"],
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+              child: Text(
+                '${post["time"]} • ${post["likes"]} likes • ${post["comments"]} comments',
+                style: TextStyle(color: Colors.grey[600], fontSize: 13),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,12 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../widgets/top_appbar.dart';
+import '../widgets/bottom_navbar.dart';
 
 class PostScreen extends StatefulWidget {
+  const PostScreen({super.key});
+
   @override
   _PostScreenState createState() => _PostScreenState();
 }
@@ -12,7 +16,8 @@ class _PostScreenState extends State<PostScreen> {
   File? _image;
 
   Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
@@ -24,14 +29,14 @@ class _PostScreenState extends State<PostScreen> {
     final text = _postController.text.trim();
     if (text.isEmpty && _image == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please add text or an image')),
+        const SnackBar(content: Text('Please add text or an image')),
       );
       return;
     }
 
     // Handle the post submission logic
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Post Submitted')),
+      const SnackBar(content: Text('Post Submitted')),
     );
     _postController.clear();
     setState(() {
@@ -43,23 +48,28 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return NeumorphicBackground(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: NeumorphicAppBar(
-          title: Text('Create Post', style: TextStyle(fontWeight: FontWeight.bold)),
-        ),
+        backgroundColor: Colors.indigoAccent,
+        appBar: const TopAppBar(title: "Create Post"),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               _buildUserHeader(),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _buildPostInput(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               if (_image != null) _buildImagePreview(),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _buildActionButtons(),
             ],
           ),
+        ),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: 2, // Adjust this index as needed
+          onTap: (int index) {
+            // Implement your navigation logic here, for example:
+            // Navigator.pushReplacementNamed(context, '/routeName');
+          },
         ),
       ),
     );
@@ -69,17 +79,18 @@ class _PostScreenState extends State<PostScreen> {
     return Row(
       children: [
         Neumorphic(
-          style: NeumorphicStyle(
+          style: const NeumorphicStyle(
             depth: 4,
             boxShape: NeumorphicBoxShape.circle(),
           ),
-          child: CircleAvatar(
+          child: const CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage('assets/user.jpg'), // Add your profile image
+            backgroundImage: NetworkImage(
+                'https://picsum.photos/200?random=45'), // Replace with your asset
           ),
         ),
-        SizedBox(width: 12),
-        Text('EcoWarrior123',
+        const SizedBox(width: 12),
+        const Text('EcoWarrior123',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ],
     );
@@ -95,7 +106,7 @@ class _PostScreenState extends State<PostScreen> {
       child: TextField(
         controller: _postController,
         maxLines: 5,
-        decoration: InputDecoration.collapsed(
+        decoration: const InputDecoration.collapsed(
           hintText: 'Share your climate action...',
         ),
       ),
@@ -109,15 +120,16 @@ class _PostScreenState extends State<PostScreen> {
           borderRadius: BorderRadius.circular(12),
           child: Image.file(_image!, height: 200, fit: BoxFit.cover),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         NeumorphicButton(
-          style: NeumorphicStyle(depth: 2, color: Colors.redAccent),
+          style: const NeumorphicStyle(depth: 2, color: Colors.redAccent),
           onPressed: () {
             setState(() {
               _image = null;
             });
           },
-          child: Text('Remove Image', style: TextStyle(color: Colors.white)),
+          child:
+              const Text('Remove Image', style: TextStyle(color: Colors.white)),
         )
       ],
     );
@@ -135,7 +147,7 @@ class _PostScreenState extends State<PostScreen> {
             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: Row(
+          child: const Row(
             children: [
               Icon(Icons.image, color: Colors.blueAccent),
               SizedBox(width: 8),
@@ -151,7 +163,7 @@ class _PostScreenState extends State<PostScreen> {
             color: Colors.green,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          child: Text('Post', style: TextStyle(color: Colors.white)),
+          child: const Text('Post', style: TextStyle(color: Colors.white)),
         ),
       ],
     );

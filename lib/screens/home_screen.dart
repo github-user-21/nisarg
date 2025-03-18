@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+import 'package:nisarg/screens/reels_screen.dart';
 import 'package:nisarg/utils/constants.dart';
 import '../widgets/bottom_navbar.dart';
 import '../widgets/reel_section.dart';
@@ -24,10 +25,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, String>> reelsData = [
     {'imageUrl': 'https://picsum.photos/200/300?random=1', 'title': 'Reel One'},
     {'imageUrl': 'https://picsum.photos/200/300?random=2', 'title': 'Reel Two'},
-    {'imageUrl': 'https://picsum.photos/200/300?random=1', 'title': 'Reel Three'},
+    {
+      'imageUrl': 'https://picsum.photos/200/300?random=1',
+      'title': 'Reel Three'
+    },
     {'imageUrl': 'https://picsum.photos/200/300?random=1', 'title': 'Reel One'},
     {'imageUrl': 'https://picsum.photos/200/300?random=1', 'title': 'Reel Two'},
-    {'imageUrl': 'https://picsum.photos/200/300?random=13', 'title': 'Reel Three'},
+    {
+      'imageUrl': 'https://picsum.photos/200/300?random=13',
+      'title': 'Reel Three'
+    },
   ];
 
   void _onTabTapped(int index) {
@@ -41,11 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return _buildHomeContent();
       case 1:
-        return PostScreen();
+        return Center(child: Text("Create posts to see here!"));
       case 2:
-        return Center(child: Text("Create Screen Placeholder"));
+        return PostScreen();
       case 3:
-        return Center(child: Text("Reels Screen Placeholder"));
+        return ReelsScreen();
       case 4:
         return ProfileScreen();
       default:
@@ -59,29 +66,30 @@ class _HomeScreenState extends State<HomeScreen> {
       child: isLoading
           ? const AnimatedLoader()
           : SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const NeumorphicCard(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  "Welcome to ${Constants.appTitle}!",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const NeumorphicCard(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        "Welcome to ${Constants.appTitle}!",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "For You",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  ReelsSection(reelsData: reelsData),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              "For You",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            ReelsSection(reelsData: reelsData),
-          ],
-        ),
-      ),
     );
   }
 
@@ -89,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return NeumorphicBackground(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.indigoAccent,
         appBar: const TopAppBar(title: "Nisarg"),
         body: _getCurrentScreen(),
         bottomNavigationBar: BottomNavBar(

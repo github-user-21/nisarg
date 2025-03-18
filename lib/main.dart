@@ -1,26 +1,34 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-
-// import 'package:riverpod/;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nisarg/screens/post_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/reels_screen.dart';
+import 'screens/profile_screen.dart';
 import 'utils/theme.dart';
-import 'utils/constants.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    ProviderScope(
+      child: MyApp(),
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicApp(
+    return NeumorphicApp(
       debugShowCheckedModeBanner: false,
-      title: Constants.appTitle,
+      title: 'Climate Action App',
       theme: theme,
-      home: HomeScreen(),
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) => const HomeScreen(),
+        // '/posts': (context) => PostScreen(),
+        '/create': (context) => const PostScreen(),
+        '/reels': (context) => ReelsScreen(),
+        '/profile': (context) => const ProfileScreen(),
+      },
     );
   }
 }
