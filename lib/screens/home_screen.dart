@@ -1,13 +1,10 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:nisarg/screens/reels_screen.dart';
+import 'package:nisarg/screens/community_screen.dart';
 import 'package:nisarg/utils/constants.dart';
 import '../widgets/bottom_navbar.dart';
-import '../widgets/reel_section.dart';
 import '../widgets/top_appbar.dart';
 import '../widgets/card.dart';
 import '../widgets/loader.dart';
-
-// IMPORT YOUR OTHER SCREENS HERE 👇
 import 'post_screen.dart';
 import 'profile_screen.dart';
 
@@ -43,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  //
   Widget _getCurrentScreen() {
     switch (_currentIndex) {
       case 0:
@@ -52,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 2:
         return PostScreen();
       case 3:
-        return ReelsScreen();
+        return CommunityScreen();
       case 4:
         return ProfileScreen();
       default:
@@ -66,30 +64,129 @@ class _HomeScreenState extends State<HomeScreen> {
       child: isLoading
           ? const AnimatedLoader()
           : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const NeumorphicCard(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        "Welcome to ${Constants.appTitle}!",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "For You",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  ReelsSection(reelsData: reelsData),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Welcome Message
+            const NeumorphicCard(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "Welcome to ${Constants.appTitle}!",
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
+            const SizedBox(height: 20),
+
+            // Post Feed (Reels-Style)
+            Column(
+              children: List.generate(reelsData.length, (index) {
+                final reel = reelsData[index];
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 5,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // User Info
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              child:
+                              Icon(Icons.person, color: Colors.white),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "User123",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Post Image
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          reel['imageUrl']!,
+                          width: double.infinity,
+                          height: 250,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+
+                      // Action Buttons (Like, Comment, Share, Save)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.favorite_border),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon:
+                                  const Icon(Icons.comment_outlined),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.share_outlined),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.bookmark_border),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Hashtags
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          "#GoGreen, #ZeroWaste",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -97,8 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return NeumorphicBackground(
       child: Scaffold(
-        backgroundColor: Colors.indigoAccent,
-        appBar: const TopAppBar(title: "Nisarg"),
+        backgroundColor: Colors.grey,
+        appBar: const TopAppBar(title: "Nisarg",),
         body: _getCurrentScreen(),
         bottomNavigationBar: BottomNavBar(
           currentIndex: _currentIndex,

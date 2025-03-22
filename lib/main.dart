@@ -1,32 +1,37 @@
-import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nisarg/screens/post_screen.dart';
+import 'package:flutter/material.dart';
+import 'screens/welcome_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/reels_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/challenges_screen.dart';
+import 'screens/learn_screen.dart';
+import 'screens/community_screen.dart';
 import 'screens/profile_screen.dart';
-import 'utils/theme.dart';
 
 void main() {
-  runApp(
-    ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Climate Action App',
-      theme: theme,
-      initialRoute: '/home',
+      title: 'Nisarg',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      initialRoute: '/welcome', // Set the starting screen
       routes: {
+        '/welcome': (context) => const WelcomeScreen(),
         '/home': (context) => const HomeScreen(),
-        // '/posts': (context) => PostScreen(),
-        '/create': (context) => const PostScreen(),
-        '/reels': (context) => ReelsScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignupScreen(),
+        '/challenges': (context) => ChallengesScreen(),
+        '/learn': (context) => const LearnScreen(),
+        '/community': (context) => CommunityScreen(),
         '/profile': (context) => const ProfileScreen(),
       },
     );

@@ -1,6 +1,5 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:nisarg/screens/challenges_screen.dart';
-// import 'package:nisarg/utils/theme.dart';
+
 
 class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -14,7 +13,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Neumorphic(
         style: const NeumorphicStyle(
           depth: 4, // Neumorphic elevation effect
-          color: Colors.blueAccent, // Background color
+          color: Colors.green, // Background color
         ),
         child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -45,25 +44,25 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
                       onPressed: () {
                         // Add search action or any other action here
                       },
-                      child: const Icon(Icons.search, color: Colors.blueAccent),
+                      child: const Icon(Icons.search, color: Colors.lightGreen),
                     ),
                     const SizedBox(width: 4), // Minimal gap between buttons
-                    NeumorphicButton(
-                      style: const NeumorphicStyle(
-                        shape: NeumorphicShape.convex,
-                        depth: 2,
-                        boxShape: NeumorphicBoxShape.circle(),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChallengesScreen()),
-                        );
-                      },
-                      child: const Icon(Icons.local_activity,
-                          color: Colors.blueAccent),
-                    ),
+                    // NeumorphicButton(
+                    //   style: const NeumorphicStyle(
+                    //     shape: NeumorphicShape.convex,
+                    //     depth: 2,
+                    //     boxShape: NeumorphicBoxShape.circle(),
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => ChallengesScreen()),
+                    //     );
+                    //   },
+                    //   child: const Icon(Icons.local_activity,
+                    //       color: Colors.lightGreen),
+                    // ),
                   ],
                 )
               ],
