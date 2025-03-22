@@ -68,6 +68,7 @@ flutter:
   assets:
     - assets/fonts/NunitoSans-Italic-VariableFont_YTLC,opsz,wdth,wght.ttf
     - assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf
+    - assets/images/img.png
 
   # An image assets can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
