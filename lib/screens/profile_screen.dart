@@ -1,7 +1,5 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
-import 'package:flutter/material.dart';
-import '../widgets/top_appbar.dart';
-import '../widgets/bottom_navbar.dart';
+import 'home_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String username = 'EcoWarrior123';
@@ -16,8 +14,30 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicBackground(
       child: Scaffold(
-        backgroundColor: Colors.indigoAccent,
-        appBar: const TopAppBar(title: "My Profile"),
+        backgroundColor: Colors.white,
+         // Soft background
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 2,
+          title: const Text(
+            "Profile",
+            style: TextStyle(
+              fontFamily: 'NunitoSans',
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () =>
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -31,12 +51,12 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 4, // Assuming Profile is at index 4
-          onTap: (index) {
-            // Implement your navigation logic here
-          },
-        ),
+        // bottomNavigationBar: BottomNavBar(
+        //   currentIndex: 4, // Assuming Profile is at index 4
+        //   onTap: (index) {
+        //     // Implement your navigation logic here
+        //   },
+        // ),
       ),
     );
   }
@@ -50,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
           const CircleAvatar(
             radius: 45,
             backgroundImage:
-                NetworkImage('https://picsum.photos/200/200?random=100'),
+            NetworkImage('https://picsum.photos/200/200?random=100'),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -73,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                 ),
               ],
@@ -181,7 +201,10 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildPostCard(BuildContext context, Map<String, dynamic> post) {
-    final double cardWidth = MediaQuery.of(context).size.width - 32;
+    final double cardWidth = MediaQuery
+        .of(context)
+        .size
+        .width - 32;
     return Container(
       width: cardWidth,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -193,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12)),
+              const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.network(
                 post["image"],
                 height: 180,
@@ -206,12 +229,12 @@ class ProfileScreen extends StatelessWidget {
               child: Text(
                 post["content"],
                 style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+              const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
               child: Text(
                 '${post["time"]} • ${post["likes"]} likes • ${post["comments"]} comments',
                 style: TextStyle(color: Colors.grey[600], fontSize: 13),

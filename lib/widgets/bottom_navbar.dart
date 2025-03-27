@@ -25,13 +25,13 @@ class BottomNavBar extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/home');
               break;
             case 1:
-              Navigator.pushReplacementNamed(context, '/posts');
+              Navigator.pushReplacementNamed(context, '/challenges');
               break;
             case 2:
-              Navigator.pushReplacementNamed(context, '/create');
+              Navigator.pushReplacementNamed(context, '/learn');
               break;
             case 3:
-              Navigator.pushReplacementNamed(context, '/reels');
+              Navigator.pushReplacementNamed(context, '/community');
               break;
             case 4:
               Navigator.pushReplacementNamed(context, '/profile');
@@ -40,10 +40,10 @@ class BottomNavBar extends StatelessWidget {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.post_add), label: "Posts"),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: "Create"),
+          BottomNavigationBarItem(icon: Icon(Icons.emoji_events), label: "Challenges"),
+          BottomNavigationBarItem(icon: Icon(Icons.auto_stories), label: "Learn"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.video_collection), label: "Reels"),
+              icon: Icon(Icons.group), label: "EcoHub"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
         type: BottomNavigationBarType.fixed,

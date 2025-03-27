@@ -1,8 +1,7 @@
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import '../widgets/top_appbar.dart';
-import '../widgets/bottom_navbar.dart';
+
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -48,8 +47,8 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return NeumorphicBackground(
       child: Scaffold(
-        backgroundColor: Colors.indigoAccent,
-        appBar: const TopAppBar(title: "Create Post"),
+        // backgroundColor: Colors.indigoAccent,
+        // appBar: const TopAppBar(title: "Create Post"),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -64,14 +63,14 @@ class _PostScreenState extends State<PostScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 2, // Adjust this index as needed
-          onTap: (int index) {
-            // Implement your navigation logic here, for example:
-            // Navigator.pushReplacementNamed(context, '/routeName');
-          },
+        // bottomNavigationBar: BottomNavBar(
+        //   currentIndex: 2, // Adjust this index as needed
+        //   onTap: (int index) {
+        //     // Implement your navigation logic here, for example:
+        //     // Navigator.pushReplacementNamed(context, '/routeName');
+        //   },
         ),
-      ),
+      // ),
     );
   }
 

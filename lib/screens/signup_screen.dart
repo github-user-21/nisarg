@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -133,7 +135,10 @@ class SignupScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30)),
                     minimumSize: const Size(double.infinity, 50),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen())),
                   child: const Text(
                     'Sign in',
                     style: TextStyle(
@@ -150,12 +155,18 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen())),
                         child: const Text('Already have an account?',
                             style: TextStyle(color: Colors.white70)),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen())),
                         child: const Text('Login!',
                             style: TextStyle(color: Colors.green)),
                       ),
